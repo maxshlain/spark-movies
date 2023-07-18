@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+@inject UsersService userService
+
+<PageTitle>@Env.Get("APP_NAME")</PageTitle>
+
+<CascadingValue Value="this">
+    <NavMenu />
+    <main class="container px-6 mx-auto py-20">
+        @Body
+    </main>
+    <Footer />
+</CascadingValue>
+
+@code {
+    public User? User = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await userService.GetAuthenticatedUser();
+    }
+}
